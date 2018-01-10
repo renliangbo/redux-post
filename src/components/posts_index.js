@@ -8,6 +8,14 @@ class PostsIndex extends Component{
 	componentWillMount(){
 		this.props.fetchPosts();
 	}
+	renderMapPost(post){
+		return(
+			<div key={post.id}>
+				{post.id}
+			</div>		
+		)
+	};
+
 	render(){
 		return(
 			<div>
@@ -17,17 +25,24 @@ class PostsIndex extends Component{
 							Add post
 						</div>
 					</Link>
-					
 				</div>
 				<h1>posts</h1>
+				{this.props.posts.all.map(this.renderMapPost)}
 			</div>
 		)
 	}
 	
 };
+
 function mapDispatchToProps(dispatch) {
 	return  bindActionCreators({fetchPosts},dispatch)
 };
 
-export default connect(null,mapDispatchToProps)(PostsIndex)
+function mapStateToProps({posts}) {
+	return  {posts}
+};
+
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(PostsIndex)
  
