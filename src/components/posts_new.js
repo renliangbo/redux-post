@@ -1,29 +1,57 @@
 import React ,{Component}from'react';
+import {reduxForm,Field ,Fields} from 'redux-form';
 
 class PostNew extends Component {
 	render(){
+		const {handleSubmit}=this.props;
+
+		const titleField=(field)=>{
+			console.log(field)
+			return (
+				<div className="form-group">
+					<label for="exampleInputEmail1">Email address</label>
+					<input 
+						type="text"
+						name="title"
+						className="form-control"
+						id="exampleInputEmail1"
+						placeholder="Enter title"
+							/>
+					<small id="emailHelp" className="form-text text-muted">
+						We'll never share your email with anyone else.
+					</small>
+				</div>
+			)
+		};
+
 		return(
 			<div>
-				<form>
-					<div className="form-group">
-						<label for="exampleInputEmail1">Email address</label>
-						<input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
-						<small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-					</div>
+				<form onSubmit={handleSubmit}>
+					<Field name="myField" component={titleField}/>
 					<div className="form-group">
 						<label for="exampleInputPassword1">Categories</label>
-						<input type="text" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+						<Field 
+							type="text"
+							name="categories"
+							component="input"
+							className="form-control"
+							id="exampleInputEmail1"
+							placeholder="Enter categories"
+							id="exampleInputPassword1"
+							 />
 					</div>
 					<div className="form-group">
 						<label for="exampleInputPassword">Content</label>
 						<input type="text" className="form-control" id="exampleInputPassword" placeholder="Password"/>
 					</div>
-					<button  className="btn btn-primary">Save</button>
-					<button className="btn btn-primary">Cancle</button>
+					<button  type="submit" className="btn btn-primary">Save</button>
+					<div className="btn btn-primary">Cancle</div>
 				</form>
 			</div>
 		)
 	}
 }
 
-export default PostNew;
+export default reduxForm({
+	form:'PostsNewForm'
+})(PostNew);
