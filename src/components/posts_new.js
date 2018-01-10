@@ -10,10 +10,16 @@ const required = value => value ? undefined : 'Required';
 const maxLength =max =>value=>value&&value.length>max ? `Must be ${max} characters or less`:undefined;
 const maxLength20=maxLength(20);
 class PostNew extends Component {
-	submit(values){
-		console.log(values);
+	onSubmit(props){
+		console.log(this.contextType)
+		this.props.createPost(props)
+		.then(()=>{
+			this.props.history.push('/');
+		})
 	}
+
 	render(){
+		console.log(this.props)
 
 		const renderField=({input,label,placeholder,type,meta:{touched,error}})=>{
 			return (
@@ -34,7 +40,7 @@ class PostNew extends Component {
 
 		return(
 			<div>
-				<form onSubmit={handleSubmit(this.props.createPost)}>
+				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 					<Field
 						name="title"
 						label="title"

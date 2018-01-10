@@ -10,13 +10,17 @@ class PostsIndex extends Component{
 	}
 	renderMapPost(post){
 		return(
-			<div key={post.id}>
-				{post.id}
+			<div key={post.id} className="alert alert-primary">
+				<div><span>title:</span> {post.title}</div> 
+				<div><span>categories:</span> {post.categories}</div>
+				<div><span>content:</span> {post.content}</div>
 			</div>		
 		)
 	};
 
+
 	render(){
+		
 		return(
 			<div>
 				<div className="">
@@ -27,6 +31,7 @@ class PostsIndex extends Component{
 					</Link>
 				</div>
 				<h1>posts</h1>
+				{this.props.posts.all.length<0?(<div>There is no post</div>):undefined}
 				{this.props.posts.all.map(this.renderMapPost)}
 			</div>
 		)
